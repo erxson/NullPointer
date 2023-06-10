@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly fileTree(dir: 'libs', include: '*.jar')
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+afterEvaluate {
+    jar.from configurations.runtimeClasspath.collect(project.&zipTree)
+}
